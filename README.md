@@ -1,87 +1,58 @@
-# 🤖 Machine Learning Mathematics 📐
+# Machine Learning Mathematics
 
-![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
-![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+This project demonstrates the core mathematical foundations required for Machine Learning, specifically focusing on linear algebra. It includes practical, executable implementations of vectors, matrices, and linear systems using Python, NumPy, and SymPy.
 
-Welcome! This repository contains educational materials, python code implementations, and practical exercises designed for building a foundational and intuitive understanding of **Machine Learning Mathematics**.
+## Motivation
+Understanding linear algebra is crucial for modern machine learning, as it powers data representations, model weights, and optimization algorithms. This project provides hands-on, executable examples to bridge the gap between abstract mathematical theory and applied code, helping students and developers build a strong intuition for these concepts.
 
----
-
-## 📚 Contents
-
-- 🧮 **[vector.ipynb](vector.ipynb)** – Introduction to vectors and vector operations in Python
-- 📐 **[linear_algebra.ipynb](linear_algebra.ipynb)** – Linear algebra concepts for ML *(coming soon)*
-- 📉 **[calculus.ipynb](calculus.ipynb)** – Calculus fundamentals for algorithm optimization *(coming soon)*
-- 🎲 **[probability.ipynb](probability.ipynb)** – Probability and statistics for ML *(coming soon)*
-
----
-
-## 🚀 Getting Started
-
-To run and explore the notebooks locally:
-
-1. **Clone this repository:**
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY-NAME.git
-   ```
-2. **Navigate to the project directory:**
-   ```bash
-   cd YOUR-REPOSITORY-NAME
-   ```
-3. **Launch Jupyter Notebook:**
-   ```bash
-   jupyter notebook vector.ipynb
-   ```
-
----
-
-## 🛠️ Requirements & Installation
-
-This project requires **Python 3.x** along with core scientific libraries:
-
-* 🐍 **Python 3.x**
-* 📓 **Jupyter Notebook / JupyterLab**
-* 🔢 **NumPy** (Numerical and matrix computations)
-* 📊 **Matplotlib** (Data visualization)
-
-Install all dependencies using `pip`:
-
-```bash
-pip install numpy matplotlib jupyter
+## Repository Structure
+```text
+project-root/
+├── README.md               # Project documentation
+├── requirements.txt        # Python dependencies
+├── .gitignore              # Ignored files and folders
+├── LICENSE                 # Project license
+├── notebooks/              # Jupyter notebooks containing math/ML code
+│   ├── 1.Vector.ipynb      # Vector operations and theory
+│   ├── 2.Matrix.ipynb      # Matrix arithmetic, properties, and inverses
+│   └── 3.Linear_System.ipynb # Solving systems of linear equations
+├── src/                    # Reusable Python modules (empty for now)
+├── docs/                   # Markdown documentation (empty for now)
+└── tests/                  # Project tests (empty for now)
 ```
 
----
+## Setup Instructions
 
-## 🎯 Usage
+1. **Clone this repository** to your local machine.
+2. **Create a virtual environment** (recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   ```
+3. **Install the dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Each notebook structuredly includes:
-- 📖 **Mathematical Explanations & Formulas**
-- 💻 **Step-by-Step Python Implementations**
-- 🎨 **Data Visualizations & Plots**
-- ✏️ **Practical Exercises with Solutions**
+## How to Run
+Launch Jupyter Notebook and explore the notebooks in the following order:
+```bash
+jupyter notebook
+```
+1. Start with `notebooks/1.Vector.ipynb` to understand 1D structures (vectors) and basic scalar operations.
+2. Proceed to `notebooks/2.Matrix.ipynb` to explore 2D structures, matrix multiplication, and key properties (Trace, Determinant, Inverse, Norm).
+3. Finish with `notebooks/3.Linear_System.ipynb` to see how vectors and matrices are combined to computationally solve multi-variable systems of equations.
 
-> **Note:** It is recommended to run the code cells sequentially to follow along with the concepts seamlessly.
+## Key Results / Findings
+- The notebooks successfully demonstrate that numerical solvers (`np.linalg.solve` and `scipy.linalg.solve`) can efficiently compute the intersections of lines and planes, seamlessly replacing manual algebraic substitutions.
+- Visualizing a 2D linear system using `matplotlib` geometrically confirms the exact analytic solutions computed by `sympy`.
 
----
+## Math/Theory Overview
+The project heavily utilizes the following core linear algebra concepts:
+- **Vectors & Matrices**: Data is mathematically represented as vectors $v \in \mathbb{R}^n$ and matrices $A \in \mathbb{R}^{m \times n}$.
+- **Matrix Multiplication**: Defines mathematical transformations and projections, computed using the dot product as $C_{i,j} = \sum_k A_{i,k}B_{k,j}$.
+- **Linear Systems**: Real-world problems are formulated as the matrix equation $Ax = b$. If $A$ is an invertible square matrix, the solution is exactly $x = A^{-1}b$.
+- **Determinants & Inverses**: A square matrix system has a unique solution if and only if $\det(A) \neq 0$.
 
-## 🙏 Acknowledgments & Attribution
-
-This educational repository and its accompanying code implementations are inspired by and based on the course **"Mathematics for Machine Learning"** taught by **Dr. Farshid Shirafkan**. 
-
-Special thanks and sincere appreciation to Dr. Shirafkan for his exceptional and insightful teaching:
-
-* 🎓 **Official Course Link:** [Math for Machine Learning on FaraDars](https://faradars.org/courses/math-for-machine-learning-fvds0104)
-* 👨‍🏫 **Instructor's Profile:** [Dr. Farshid Shirafkan on LinkedIn](https://www.linkedin.com/in/fshirafkan)
-
----
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to open an **Issue** or submit a **Pull Request**.
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details
+## License
+This project is licensed under the terms provided in the `LICENSE` file.
