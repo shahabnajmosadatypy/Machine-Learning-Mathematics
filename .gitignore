@@ -3,11 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 .ipynb_checkpoints/
+.pytest_cache/
 
 # Virtual environments
 .venv/
 venv/
 env/
+ENV/
 .env
 
 # OS generated files
@@ -23,11 +25,18 @@ Thumbs.db
 .vscode/
 .idea/
 
-# ML / Large Artifacts
+# ML / Large Binary Artifacts
 *.pt
 *.pth
 *.pkl
 *.h5
 *.ckpt
-*.csv
-*.dat
+*.onnx
+*.bin
+*.npz
+*.npy
+
+# Data files (exclude large raw data files by default)
+data/*.csv
+data/*.json
+!data/README.md
