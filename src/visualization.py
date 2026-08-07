@@ -1,8 +1,8 @@
 """
-Visualization utilities for vector arithmetic and linear systems.
+Visualization utilities for vector arithmetic, linear systems, and function limits.
 """
 
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Callable
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -133,6 +133,56 @@ def plot_linear_system_2d(
     ax.grid(True, linestyle=":", alpha=0.6)
     ax.set_xlabel("$x_1$")
     ax.set_ylabel("$x_2$")
+    ax.set_title(title)
+    ax.legend()
+    return fig
+
+
+def plot_function_limit(
+    func: Callable[[np.ndarray], np.ndarray],
+    x_range: Tuple[float, float] = (0.0, 2.0),
+    target_x: Optional[float] = 1.0,
+    limit_val: Optional[float] = 2.0,
+    title: str = "Function Limit Visualization",
+) -> plt.Figure:
+    """
+    Plot a function f(x) and highlight target point x -> c and limit value L.
+
+    Parameters
+    ----------
+    func : Callable[[np.ndarray], np.ndarray]
+        Vectorized Python function f(x).
+    x_range : Tuple[float, float]
+        Plotting interval for x.
+    target_x : Optional[float]
+        Point c where limit is evaluated.
+    limit_val : Optional[float]
+        Calculated limit L = lim_{x -> c} f(x).
+    title : str
+        Plot title.
+
+    Returns
+    -------
+    plt.Figure
+        The matplotlib figure object.
+    """
+    fig, ax = plt.subplots(figsize=(7, 5))
+    x = np.linspace(x_range[0], x_range[1], 500)
+    # Avoid exact division by zero at target point if present
+    if target_x is not None:
+        x = x[np.abs(x - target_x) > 1e-7]
+
+    y = func(x)
+    ax.plot(x, y, color="blue", linewidth=2, label="$f(x)$")
+
+    if target_x is not None:
+        ax.axvline(x=target_x, color="red", linestyle="--", alpha=0.7, label=f"$x \\to {target_x}$")
+    if limit_val is not None:
+        ax.axhline(y=limit_val, color="green", linestyle="--", alpha=0.7, label=f"$L = {limit_val}$")
+
+    ax.grid(True, linestyle=":", alpha=0.6)
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$f(x)$")
     ax.set_title(title)
     ax.legend()
     return fig
