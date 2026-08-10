@@ -22,7 +22,8 @@ Machine Learning Mathematics/
 │   ├── ✖️ 3.Linear_System.ipynb # Matrix equations Ax = b and linear solvers
 │   ├── ⚛️ 4.1.Eigenvalues_and_Eigenvectors.ipynb # Spectral theory & eigendecomposition
 │   ├── 📐 4.2.SVD.ipynb       # Singular Value Decomposition & low-rank approximation
-│   └── 📈 5.Limit.ipynb       # Limits of functions, removable discontinuities, & asymptotes
+│   ├── 📈 5.Limit.ipynb       # Limits of functions, removable discontinuities, & asymptotes
+│   └── ⚡ 6.Derivative.ipynb  # Ordinary & partial derivatives, Chain Rule, & log/exp gradients
 ├── 💻 src/                    # Reusable Python modules
 │   ├── 🟢 __init__.py         # Package initializer
 │   ├── 📊 visualization.py    # Vector, linear system, and limit plot helpers
@@ -71,6 +72,7 @@ jupyter notebook
 4. 🏅 **`notebooks/4.1.Eigenvalues_and_Eigenvectors.ipynb`**: Master characteristic equations $\det(A - \lambda I) = 0$, invariant eigenspaces $Av = \lambda v$, and diagonalizations.
 5. 🏆 **`notebooks/4.2.SVD.ipynb`**: Understand rectangular factorizations $A = U \Sigma V^T$, singular values $\sigma_i = \sqrt{\lambda_i}$, and low-rank matrix reconstructions.
 6. 🎯 **`notebooks/5.Limit.ipynb`**: Study functional limits $\lim_{x \to c} f(x) = L$, removable discontinuities ($\frac{0}{0}$ indeterminate forms), and asymptotic limits at infinity ($\lim_{x \to \infty} \frac{1}{x} = 0$).
+7. ⚡ **`notebooks/6.Derivative.ipynb`**: Master ordinary $f'(x)$ and partial $\frac{\partial f}{\partial x}$ derivatives, Chain Rule backpropagation, and logarithmic/exponential loss gradients.
 
 ## 📊 Key Results & Empirical Verification
 
@@ -87,7 +89,8 @@ The project covers the core mathematical principles of machine learning:
 - ✖️ **Linear Systems**: Systems of linear constraints are formulated as $Ax = b$. Unique solutions exist if and only if matrix $A$ is non-singular ($\det(A) \neq 0$).
 - ⚛️ **Eigendecomposition**: Eigenvectors $v$ satisfy $Av = \lambda v$, defining invariant direction axes and scalar stretch factors $\lambda$.
 - 📐 **Singular Value Decomposition**: Generalizes spectral decomposition to rectangular matrices $A \in \mathbb{R}^{m \times n}$ as $A = U \Sigma V^T$, laying the foundation for Principal Component Analysis (PCA) and dimensionality reduction.
-- 📈 **Limits & Calculus Foundations**: Limits $\lim_{x \to c} f(x) = L$ quantify continuous convergence, resolving indeterminate forms $\frac{0}{0}$ and defining the foundation for derivatives and gradient descent.
+- 📈 **Limits & Calculus Foundations**: Limits $\lim_{x \to c} f(x) = L$ quantify continuous convergence, resolving indeterminate forms $\frac{0}{0}$.
+- ⚡ **Derivatives & Optimization**: Ordinary and partial derivatives $\frac{\partial f}{\partial x_i}$ construct the gradient vector $\nabla f$, while the Chain Rule $\frac{d}{dx}f(g(x)) = f'(g(x))g'(x)$ powers neural network backpropagation.
 
 ## 📜 License
 
