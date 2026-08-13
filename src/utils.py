@@ -1,11 +1,79 @@
 """
-Visualization utilities for vector arithmetic, linear systems, and function limits.
+Consolidated utility module providing numerical solvers, verification routines,
+and plotting functions for linear algebra, calculus, and optimization.
 """
 
-from typing import List, Tuple, Optional, Callable
+from typing import List, Tuple, Optional, Callable, Dict
 import numpy as np
 import matplotlib.pyplot as plt
 
+
+# ==============================================================================
+# 1. Numerical Solvers & Linear Algebra Utilities
+# ==============================================================================
+
+def verify_linear_system(A: np.ndarray, b: np.ndarray, x: np.ndarray) -> Dict[str, float]:
+    """
+    Verify the numerical accuracy of a linear system solution Ax = b.
+
+    Parameters
+    ----------
+    A : np.ndarray
+        Coefficient matrix (m x n).
+    b : np.ndarray
+        Constants vector (m,).
+    x : np.ndarray
+        Proposed solution vector (n,).
+
+    Returns
+    -------
+    Dict[str, float]
+        Dictionary containing residual vector norm and relative error.
+    """
+    residual = np.dot(A, x) - b
+    residual_norm = float(np.linalg.norm(residual))
+    b_norm = float(np.linalg.norm(b))
+    relative_error = residual_norm / (b_norm + 1e-15)
+
+    return {
+        "residual_norm": residual_norm,
+        "relative_error": relative_error,
+        "is_valid": residual_norm < 1e-6,
+    }
+
+
+def compute_svd_reconstruction(
+    A: np.ndarray, k: int
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Compute rank-k truncated SVD reconstruction of matrix A.
+
+    Parameters
+    ----------
+    A : np.ndarray
+        Input matrix (m x n).
+    k : int
+        Target rank for truncation (1 <= k <= min(m, n)).
+
+    Returns
+    -------
+    Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+        U_k, S_k, Vt_k, and the reconstructed matrix A_k.
+    """
+    U, S, Vt = np.linalg.svd(A, full_matrices=False)
+    k = min(k, len(S))
+
+    U_k = U[:, :k]
+    S_k = S[:k]
+    Vt_k = Vt[:k, :]
+
+    A_k = np.dot(U_k, np.dot(np.diag(S_k), Vt_k))
+    return U_k, S_k, Vt_k, A_k
+
+
+# ==============================================================================
+# 2. Visualization Utilities
+# ==============================================================================
 
 def plot_vectors_2d(
     vectors: List[np.ndarray],
@@ -185,4 +253,69 @@ def plot_function_limit(
     ax.set_ylabel("$f(x)$")
     ax.set_title(title)
     ax.legend()
+    return fig
+
+
+def plot_area_under_curve(
+    func: Callable[[np.ndarray], np.ndarray],
+    x_range: Tuple[float, float] = (-3.0, 3.0),
+    integration_bounds: Tuple[float, float] = (1.0, 2.0),
+    title: str = "Definite Integral Visualization",
+    xlabel: str = "x",
+    ylabel: str = "y",
+    func_label: str = "f(x)",
+    area_label: Optional[str] = None,
+    color: str = "red",
+) -> plt.Figure:
+    """
+    Plot a function f(x) and shade the definite integral area under the curve.
+
+    Parameters
+    ----------
+    func : Callable[[np.ndarray], np.ndarray]
+        Vectorized Python function f(x).
+    x_range : Tuple[float, float]
+        Plotting interval for x.
+    integration_bounds : Tuple[float, float]
+        Lower (a) and upper (b) integration limits.
+    title : str
+        Plot title.
+    xlabel : str
+        X-axis label.
+    ylabel : str
+        Y-axis label.
+    func_label : str
+        Function curve label.
+    area_label : Optional[str]
+        Label for the shaded integral region.
+    color : str
+        Color for curve and shaded region.
+
+    Returns
+    -------
+    plt.Figure
+        The matplotlib figure object.
+    """
+    a, b = integration_bounds
+    fig, ax = plt.subplots(figsize=(7, 5))
+    x = np.linspace(x_range[0], x_range[1], 400)
+    y = func(x)
+
+    ax.plot(x, y, color=color, linewidth=2, label=f"${func_label}$")
+
+    # Shaded definite integral area
+    x_fill = np.linspace(a, b, 200)
+    y_fill = func(x_fill)
+    lbl = area_label if area_label is not None else f"$\\int_{{{a}}}^{{{b}}} {func_label} \\, dx$"
+    ax.fill_between(x_fill, y_fill, alpha=0.3, color=color, label=lbl)
+
+    ax.axvline(a, color="black", linestyle=":", alpha=0.6)
+    ax.axvline(b, color="black", linestyle=":", alpha=0.6)
+    ax.axhline(0, color="black", linewidth=1, linestyle="--")
+    ax.axvline(0, color="black", linewidth=1, linestyle="--")
+    ax.grid(True, linestyle=":", alpha=0.6)
+    ax.set_xlabel(f"${xlabel}$")
+    ax.set_ylabel(f"${ylabel}$")
+    ax.set_title(title)
+    ax.legend(loc="upper left")
     return fig

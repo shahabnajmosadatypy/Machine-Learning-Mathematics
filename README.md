@@ -1,6 +1,6 @@
 # 🧮 Machine Learning Mathematics — University Lecture Notes & Code
 
-This project delivers university-lecture-note-style (**jozveh**) educational material and executable Python implementations for foundational Machine Learning Mathematics. Focusing on Linear Algebra, Calculus, and Spectral Decompositions, it bridges the gap between formal mathematical proofs and applied code using NumPy, SymPy, SciPy, and Matplotlib. 🚀
+This project delivers comprehensive university lecture notes and executable Python implementations for foundational Machine Learning Mathematics. Focusing on Linear Algebra, Calculus, Integration, and Optimization, it bridges the gap between formal mathematical proofs and applied code using NumPy, SymPy, SciPy, and Matplotlib. 🚀
 
 ## 🎯 Motivation
 
@@ -14,22 +14,25 @@ Machine Learning Mathematics/
 ├── 📦 requirements.txt        # Python package dependencies
 ├── 🙈 .gitignore              # Git ignore rules for ML & Python artifacts
 ├── ⚖️ LICENSE                 # MIT License
-├── 📁 data/                   # Datasets directory (synthetically generated)
-│   └── 📖 README.md           # Dataset documentation
-├── 📓 notebooks/              # Lecture-note (jozveh) Jupyter notebooks
+├── 📁 data/                   # Datasets directory (optional local data storage)
+├── 📓 notebooks/              # University lecture note Jupyter notebooks
 │   ├── 📐 1.Vector.ipynb      # Vector spaces, inner products, and norms
 │   ├── 🔢 2.Matrix.ipynb      # Matrix algebra, determinants, and inverses
 │   ├── ✖️ 3.Linear_System.ipynb # Matrix equations Ax = b and linear solvers
 │   ├── ⚛️ 4.1.Eigenvalues_and_Eigenvectors.ipynb # Spectral theory & eigendecomposition
 │   ├── 📐 4.2.SVD.ipynb       # Singular Value Decomposition & low-rank approximation
 │   ├── 📈 5.Limit.ipynb       # Limits of functions, removable discontinuities, & asymptotes
-│   └── ⚡ 6.Derivative.ipynb  # Ordinary & partial derivatives, Chain Rule, & log/exp gradients
+│   ├── ⚡ 6.Derivative.ipynb  # Ordinary & partial derivatives, Chain Rule, & log/exp gradients
+│   ├──  7.Integrate.ipynb   # Indefinite/definite integration & area computation
+│   ├── 📉 8.1.Gradient_Descent.ipynb # Gradient descent update rules & learning rates
+│   ├── 🎯 8.2.Optimization.ipynb     # Constrained optimization & Lagrange multipliers
+│   ├── 📊 9.1.Statistics.ipynb       # Descriptive statistics, dispersion, covariance, & Pearson r
+│   └── 🎲 9.2.Distribution.ipynb     # Probability distributions: Bernoulli, Binomial, Poisson, Normal
 ├── 💻 src/                    # Reusable Python modules
 │   ├── 🟢 __init__.py         # Package initializer
-│   ├── 📊 visualization.py    # Vector, linear system, and limit plot helpers
-│   └── ⚡ solvers.py          # Numerical verification and SVD solvers
+│   └── 🛠️ utils.py            # Consolidated numerical solvers and plotting utilities
 └── 🧪 tests/                  # Unit tests for source code helpers
-    └── 🧪 test_solvers.py     # Pytest suite for solver verification
+    └── 🧪 test_utils.py       # Pytest / unittest suite for utils verification
 ```
 
 ## 🛠️ Setup Instructions
@@ -56,7 +59,7 @@ Machine Learning Mathematics/
 
 4. **Run unit tests** (optional verification):
    ```bash
-   pytest
+   python -m unittest tests/test_utils.py
    ```
 
 ## 🏃 How to Run
@@ -73,11 +76,16 @@ jupyter notebook
 5. 🏆 **`notebooks/4.2.SVD.ipynb`**: Understand rectangular factorizations $A = U \Sigma V^T$, singular values $\sigma_i = \sqrt{\lambda_i}$, and low-rank matrix reconstructions.
 6. 🎯 **`notebooks/5.Limit.ipynb`**: Study functional limits $\lim_{x \to c} f(x) = L$, removable discontinuities ($\frac{0}{0}$ indeterminate forms), and asymptotic limits at infinity ($\lim_{x \to \infty} \frac{1}{x} = 0$).
 7. ⚡ **`notebooks/6.Derivative.ipynb`**: Master ordinary $f'(x)$ and partial $\frac{\partial f}{\partial x}$ derivatives, Chain Rule backpropagation, and logarithmic/exponential loss gradients.
+8.  **`notebooks/7.Integrate.ipynb`**: Study indefinite and definite integrals $\int_{a}^{b} f(x) \, dx = F(b) - F(a)$, partial integration, and area under curves.
+9. 📉 **`notebooks/8.1.Gradient_Descent.ipynb`**: Master the parameter update rule $x^{(k+1)} = x^{(k)} - \eta \nabla f(x^{(k)})$, learning rate dynamics, and multivariate loss optimization.
+10. 🎯 **`notebooks/8.2.Optimization.ipynb`**: Study constrained minimization $\min_x f(x) \text{ s.t. } g(x) = 0$, SciPy SLSQP optimization, and the Method of Lagrange Multipliers $\mathcal{L}(x, y, \lambda) = f(x, y) - \lambda g(x, y)$.
+11. 📊 **`notebooks/9.1.Statistics.ipynb`**: Study central tendency (mean, median, mode), IQR outlier bounds, variance/standard deviation, covariance, and Pearson correlation $r$.
+12. 🎲 **`notebooks/9.2.Distribution.ipynb`**: Explore discrete (Bernoulli, Binomial, Poisson) and continuous (Normal Gaussian) distributions with empirical PDF fitting.
 
 ## 📊 Key Results & Empirical Verification
 
 - ⚡ **Numerical Stability**: `np.linalg.solve(A, b)` provides exact numerical solutions (residual norm $< 10^{-15}$) for linear systems $Ax = b$, outperforming explicit matrix inversion $A^{-1}b$.
-- 📉 **Geometric Alignment**: Matplotlib visual plots in `src/visualization.py` visually confirm line/plane intersections and limits of indeterminate forms.
+- 📉 **Geometric Alignment**: Matplotlib visual plots in `src/utils.py` visually confirm line/plane intersections, function limits, definite integral areas, and probability distributions.
 - 📐 **Spectral Reconstruction**: SVD matrix factorizations $A = U \Sigma V^T$ reconstruct arbitrary $m \times n$ real matrices with zero error norm.
 
 ## 📚 Math & Theory Overview
@@ -91,6 +99,10 @@ The project covers the core mathematical principles of machine learning:
 - 📐 **Singular Value Decomposition**: Generalizes spectral decomposition to rectangular matrices $A \in \mathbb{R}^{m \times n}$ as $A = U \Sigma V^T$, laying the foundation for Principal Component Analysis (PCA) and dimensionality reduction.
 - 📈 **Limits & Calculus Foundations**: Limits $\lim_{x \to c} f(x) = L$ quantify continuous convergence, resolving indeterminate forms $\frac{0}{0}$.
 - ⚡ **Derivatives & Optimization**: Ordinary and partial derivatives $\frac{\partial f}{\partial x_i}$ construct the gradient vector $\nabla f$, while the Chain Rule $\frac{d}{dx}f(g(x)) = f'(g(x))g'(x)$ powers neural network backpropagation.
+-  **Integration & Cumulative Distribution**: Integrals $\int f(x) \, dx$ compute probability density areas and expected values.
+- 📉 **Gradient Descent & Constrained Optimization**: Iterative update rules $x^{(k+1)} = x^{(k)} - \eta \nabla f(x^{(k)})$ minimize loss functions, while Lagrange Multipliers $\mathcal{L}(x, y, \lambda)$ handle constrained weight surfaces.
+- 📊 **Descriptive Statistics & Covariance**: Measures of central tendency, IQR outlier filtering, and Pearson correlation coefficient $r \in [-1, 1]$ measure feature dependencies.
+- 🎲 **Probability Distributions**: Discrete PMFs (Bernoulli, Binomial, Poisson) and continuous Gaussian PDFs model random data generation and noise in ML pipelines.
 
 ## 📜 License
 

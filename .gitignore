@@ -39,4 +39,4 @@ Thumbs.db
 # Data files (exclude large raw data files by default)
 data/*.csv
 data/*.json
-!data/README.md
+!data/.gitkeep
